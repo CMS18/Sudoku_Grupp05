@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace SudokuEliteSolver
 {
@@ -23,9 +24,9 @@ namespace SudokuEliteSolver
             easySodoku[4] = "001290375020000961090300020000027100000805000002640000080009050453000090269053400";
         }
 
-        static string mediumSodoku = "000300000001080070980007610007900040204000308060008900075800031020060700000004000";
-        static string hardSodoku = "000004800590200004100800090001000508070000040309000100030001002200008067004900000";
-        static string expertSodoku = "060090020100000000070001800015300002000604000800005430003400050000000009050070060";
+        static string mediumSodoku  = "000300000001080070980007610007900040204000308060008900075800031020060700000004000";
+        static string hardSodoku    = "000004800590200004100800090001000508070000040309000100030001002200008067004900000";
+        static string expertSodoku  = "060090020100000000070001800015300002000604000800005430003400050000000009050070060";
 
         static void InitValues()
         {
@@ -67,24 +68,48 @@ namespace SudokuEliteSolver
             }
         }
 
-        static void DisplaySodokuBoard()
+        static void DisplaySodokuBoard(int i)
         {
-            Console.WriteLine("-------------------------");
-            for (int row = 0; row < 9; row++)
+            if (i == 1)
             {
-                Console.Write("|");
-                for (int col = 0; col < 9; col++)
+                Console.WriteLine("-------------------------");
+                for (int row = 0; row < 9; row++)
                 {
-                    Console.Write(" " + sodokuBoard[row, col]);
-                    if ((col + 1) % 3 == 0)
+                    Console.Write("|");
+                    for (int col = 0; col < 9; col++)
                     {
-                        Console.Write(" |");
+                        Console.Write(" " + sodokuBoard[row, col]);
+                        if ((col + 1) % 3 == 0)
+                        {
+                            Console.Write(" |");
+                        }
+                    }
+                    Console.WriteLine();
+                    if ((row + 1) % 3 == 0)
+                    {
+                        Console.WriteLine("-------------------------");
                     }
                 }
-                Console.WriteLine();
-                if ((row + 1) % 3 == 0)
+            }
+            if (i == 2)
+            {
+                Console.WriteLine("                         -------------------------");
+                for (int row = 0; row < 9; row++)
                 {
-                    Console.WriteLine("-------------------------");
+                    Console.Write("                         |");
+                    for (int col = 0; col < 9; col++)
+                    {
+                        Console.Write(" " + sodokuBoard[row, col]);
+                        if ((col + 1) % 3 == 0)
+                        {
+                            Console.Write(" |");
+                        }
+                    }
+                    Console.WriteLine("                         ");
+                    if ((row + 1) % 3 == 0)
+                    {
+                        Console.WriteLine("                         -------------------------");
+                    }
                 }
             }
         }
@@ -209,21 +234,42 @@ namespace SudokuEliteSolver
 
         static void Main(string[] args)
         {
-            initSodokuStrings();
-            for (int i = 0; i < 5; i++)
-            {
+            //initSodokuStrings();
+            //for (int i = 0; i < 5; i++)
+            //{
+
+            // ...
+
+
+
+            // ...
+
+
+
+                Stopwatch sw = new Stopwatch();
+
+                sw.Start();
                 InitValues(); // Sätter alla möjliga värden för varje enskild ruta i sodokubrädet till en modifierbarlista med talen 1-9
-                InitIntermittentSodokuRowHolder(easySodoku[i]);
+                InitIntermittentSodokuRowHolder(mediumSodoku);
                 InitSodokuBoard();
-                DisplaySodokuBoard();
+                DisplaySodokuBoard(1);
                 UpdatePossibleValuesForBasedOnInitialValues(); // Tar bort possibleValue-listan för varje ruta som != 0
 
                 Solve();
-                DisplaySodokuBoard();
-                PrintPossibleValues();
-
+                Console.WriteLine("                         Lösningen: ");
+                DisplaySodokuBoard(2);
+                //PrintPossibleValues();
+                    sw.Stop();
+                    Console.WriteLine("Elapsed={0}", sw.Elapsed);
                 Console.ReadKey();
-            }
+            //}
+
+
+            /*
+             * ClockAlarm ca;
+             * 
+             * 
+             */
         }
 
         private static void PrintPossibleValues()
