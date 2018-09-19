@@ -37,24 +37,27 @@ namespace SudokuEliteSolver
             }
         }
 
-        private void DisplaysudokuBoard()
+        private void DisplaysudokuBoard(int i)
         {
-            Console.WriteLine("-------------------------");
-            for (int row = 0; row < 9; row++)
+            if (i == 1)
             {
-                Console.Write("|");
-                for (int col = 0; col < 9; col++)
+                Console.WriteLine("-------------------------");
+                for (int row = 0; row < 9; row++)
                 {
-                    Console.Write(" " + sudokuBoard[row, col]);
-                    if ((col + 1) % 3 == 0)
+                    Console.Write("|");
+                    for (int col = 0; col < 9; col++)
                     {
-                        Console.Write(" |");
+                        Console.Write(" " + sudokuBoard[row, col]);
+                        if ((col + 1) % 3 == 0)
+                        {
+                            Console.Write(" |");
+                        }
                     }
-                }
-                Console.WriteLine();
-                if ((row + 1) % 3 == 0)
-                {
-                    Console.WriteLine("-------------------------");
+                    Console.WriteLine();
+                    if ((row + 1) % 3 == 0)
+                    {
+                        Console.WriteLine("-------------------------");
+                    }
                 }
             }
         }
@@ -98,7 +101,7 @@ namespace SudokuEliteSolver
         public void Solve()
         {
             Console.WriteLine("Pussel att lösa: ");
-            DisplaysudokuBoard();
+            DisplaysudokuBoard(1);
 
             InitValues();
             List<int> unavailableValues = new List<int>();
@@ -155,11 +158,7 @@ namespace SudokuEliteSolver
                 }
             }
             Console.WriteLine("Efter lösning: ");
-            DisplaysudokuBoard();
-
-
-
-
+            DisplaysudokuBoard(1);
         }
 
         private void PrintPossibleValues()
