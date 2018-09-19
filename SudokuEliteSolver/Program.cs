@@ -10,7 +10,6 @@ namespace SudokuEliteSolver
 {
     class Program
     {
-        static string[] intermittentSodokuRowHolder = new string[9];
         static string[] easySodoku = new string[5];
 
         static void initSodokuStrings()
@@ -26,64 +25,10 @@ namespace SudokuEliteSolver
         static string hardSodoku    = "000004800590200004100800090001000508070000040309000100030001002200008067004900000";
         static string expertSodoku  = "060090020100000000070001800015300002000604000800005430003400050000000009050070060";
 
-        
-
-
-        //static void InitIntermittentSodokuRowHolder(string sodoku)
-        //{
-        //    int index = 0;
-        //    const int length = 9;
-        //    int i = 0;
-        //    for (int row = 1; row <= 9; row++)
-        //    {
-        //        intermittentSodokuRowHolder[i] = sodoku.Substring(index, length);
-        //        i++;
-        //        index += length;
-        //    }
-        //}
-
-        //static void InitsudokuBoard()
-        //{
-        //    // static int[,] sudokuBoard = new int[9,9]; // tmpBoard
-        //    for (int row = 0; row < 9; row++)
-        //    {
-        //        for (int col = 0; col < 9; col++)
-        //        {
-        //            sudokuBoard[row, col] = int.Parse(("" + intermittentSodokuRowHolder[row][col]));
-        //        }
-        //    }
-        //}
-
-
-        
-
-        
-
-        // SodokuSolvern
-        // possibleValue
-        // sudokuBoard
-        
-        
-
         static void Main(string[] args)
         {
             Sudoku sudoku = new Sudoku("060001020970820400035004001604000018007000200820000605700900130002067094040500080");
             sudoku.Solve();
-            
-            //InitValues(); // Sätter alla möjliga värden för varje enskild ruta i sodokubrädet till en modifierbarlista med talen 1-9
-
-            //InitIntermittentSodokuRowHolder(mediumSodoku);
-            //InitsudokuBoard();
-
-            //DisplaysudokuBoard(1);
-            //UpdatePossibleValuesForBasedOnInitialValues(); // Tar bort possibleValue-listan för varje ruta som != 0
-            //SudokuSolve();
-            //Console.WriteLine("                         Lösningen: ");
-            //DisplaysudokuBoard(2);
-            //PrintPossibleValues();
-            //Console.ReadKey();
         }
-
-        
     }
 }

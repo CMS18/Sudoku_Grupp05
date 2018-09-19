@@ -28,11 +28,6 @@ namespace SudokuEliteSolver
             {
                 for (int col = 0; col < 9; col++)
                 {
-                    //possibleValue[row, col] = testList;
-                    //if(sudokuBoard[row,col] != 0)
-                    //{
-                    //    //possibleValue[row, col].Clear();
-                    //}
                     possibleValue[row, col] = new List<int>();
                     for (int i = 1; i <= 9; i++)
                     {
@@ -65,45 +60,7 @@ namespace SudokuEliteSolver
                     }
                 }
             }
-
-
-            //if (i == 2)
-            //{
-            //    Console.WriteLine("\t\t\t -------------------------");
-            //    for (int row = 0; row < 9; row++)
-            //    {
-            //        Console.Write("\t\t\t |");
-            //        for (int col = 0; col < 9; col++)
-            //        {
-            //            Console.Write(" " + sudokuBoard[row, col]);
-            //            if ((col + 1) % 3 == 0)
-            //            {
-            //                Console.Write(" |");
-            //            }
-            //        }
-            //        Console.WriteLine("\t\t\t ");
-            //        if ((row + 1) % 3 == 0)
-            //        {
-            //            Console.WriteLine("\t\t\t -------------------------");
-            //        }
-            //    }
-            //}
         }
-
-        //private void UpdatePossibleValuesForBasedOnInitialValues()
-        //{
-        //    // Om värderna har fastställts ska alla potentiella värden tas bort
-        //    for (int row = 0; row < 9; row++)
-        //    {
-        //        for (int col = 0; col < 9; col++)
-        //        {
-        //            if (sudokuBoard[row, col] != 0)
-        //            {
-        //                possibleValue[row, col].Clear(); // Alla possibleValues tas bort för den fastställda rutan
-        //            }
-        //        }
-        //    }
-        //}
 
         private List<int> GetRowValues(int row)
         {
@@ -135,9 +92,7 @@ namespace SudokuEliteSolver
             {
                 for (int y = yStart; y < yStart + 3; y++)
                 {
-                    //if (sudokuBoard[rows[x], cols[y]] != 0) values.Add(sudokuBoard[rows[x], cols[y]]);
                     if (sudokuBoard[x, y] != 0) values.Add(sudokuBoard[x, y]);
-                    //if (sudokuBoard[rows[x], cols[y]] != 0) values.Add(sudokuBoard[x, y]);
                 }
             }
             return values;
