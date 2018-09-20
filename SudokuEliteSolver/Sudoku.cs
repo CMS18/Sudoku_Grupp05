@@ -156,26 +156,22 @@ namespace SudokuEliteSolver
             }
             Console.WriteLine("Efter lösning: ");
             DisplaysudokuBoard();
-
-
-
-
         }
 
-        private void PrintPossibleValues()
-        {
-            for (int row = 0; row < 9; row++)
-            {
-                for (int col = 0; col < 9; col++)
-                {
-                    Console.Write($"possibleValue[{row}, {col}]=[");
-                    foreach (int item in possibleValue[row, col])
-                    {
-                        Console.Write(item + ",");
-                    }
-                    Console.WriteLine("\b]");
-                }
-            }
-        }
+        //private void PrintPossibleValues()
+        //{
+        //    for (int row = 0; row < 9; row++)
+        //    {
+        //        for (int col = 0; col < 9; col++)
+        //        {
+        //            Console.Write($"possibleValue[{row}, {col}]=[");
+        //            foreach (int item in possibleValue[row, col])
+        //            {
+        //                Console.Write(item + ",");
+        //            }
+        //            Console.WriteLine("\b]");
+        //        }
+        //    }
+        //}
     }
 }

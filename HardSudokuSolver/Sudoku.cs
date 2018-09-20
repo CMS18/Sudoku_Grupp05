@@ -156,10 +156,6 @@ namespace HardSudokuSolver
             }
             Console.WriteLine("Efter lösning: ");
             DisplaysudokuBoard();
-
-
-
-
         }
 
         private void PrintPossibleValues()
