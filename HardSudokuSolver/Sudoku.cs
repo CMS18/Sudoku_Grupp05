@@ -37,27 +37,24 @@ namespace HardSudokuSolver
             }
         }
 
-        private void DisplaysudokuBoard(int i)
+        private void DisplaysudokuBoard()
         {
-            if (i == 1)
+            Console.WriteLine("-------------------------");
+            for (int row = 0; row < 9; row++)
             {
-                Console.WriteLine("-------------------------");
-                for (int row = 0; row < 9; row++)
+                Console.Write("|");
+                for (int col = 0; col < 9; col++)
                 {
-                    Console.Write("|");
-                    for (int col = 0; col < 9; col++)
+                    Console.Write(" " + sudokuBoard[row, col]);
+                    if ((col + 1) % 3 == 0)
                     {
-                        Console.Write(" " + sudokuBoard[row, col]);
-                        if ((col + 1) % 3 == 0)
-                        {
-                            Console.Write(" |");
-                        }
+                        Console.Write(" |");
                     }
-                    Console.WriteLine();
-                    if ((row + 1) % 3 == 0)
-                    {
-                        Console.WriteLine("-------------------------");
-                    }
+                }
+                Console.WriteLine();
+                if ((row + 1) % 3 == 0)
+                {
+                    Console.WriteLine("-------------------------");
                 }
             }
         }
@@ -101,7 +98,7 @@ namespace HardSudokuSolver
         public void Solve()
         {
             Console.WriteLine("Pussel att lösa: ");
-            DisplaysudokuBoard(1);
+            DisplaysudokuBoard();
 
             InitValues();
             List<int> unavailableValues = new List<int>();
@@ -164,6 +161,8 @@ namespace HardSudokuSolver
 
 
             Console.WriteLine("Efter lösning: ");
+            DisplaysudokuBoard();
+        }
             DisplaysudokuBoard(1);
 
 
