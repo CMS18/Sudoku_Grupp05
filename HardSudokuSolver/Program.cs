@@ -27,7 +27,7 @@ namespace HardSudokuSolver
         static void Main(string[] args)
         {
             Sudoku sudoku = new Sudoku(easySodoku[0]);
-            Sudoz
+            sudoku.Solve();
         }
     }
 }

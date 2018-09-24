@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SudokuEliteSolver
+namespace HardSudokuSolver
 {
     class Sudoku
     {
@@ -157,11 +157,59 @@ namespace SudokuEliteSolver
                     }
                 }
             }
+
+            bool isSolved = SolveByTrying(0, 0, 0);
+            if (isSolved) Console.WriteLine("Brädet är avklarat!");
+            else Console.WriteLine("Du har failat!");
+
+
             Console.WriteLine("Efter lösning: ");
             DisplaysudokuBoard(1);
+
+
+
+        }
+        
+        private bool SolveByTrying(int row, int col, int idx)
+        {
+            bool withinBoard = false;
+            // Kontrollera att positionen är innanför brädet - annars korrigera den
+            if (row < 9 && col < 9) withinBoard = true;
+            else if (col > 8 && row < 7)
+            {
+                col = 0;
+                row++;
+            }
+            else withinBoard = false;
+            if (withinBoard == false) return true; // alla rutor genomgådda
+            
+
+            // Om positionen är inom brädet:
+            if (withinBoard)
+            {
+
+            }
+            // Om positionen är 0:
+            // GetPossibleValues(row,col); // från possibleValue
+            // Om (i<possibleValue[row,col].length):
+            // board[row,col] = possibleValue[row,col][i];
+            // Om nästa lösning är true: if (...
+            // Om positionen != 0:
+            // return SolveByGuessing(row,col+1,0);
+            // Om inte:
+            // Om (col > 8 && row > 8):
+            // return true; // brädet löst (förhoppningsvis)
+            // Annars Om (col > 8):
+            // SolveByGuessing(row+1,0,0)
+            // return SolveByGuessing(row,col,i);
+            return false; // 
         }
 
-        private void PrintPossibleValues()
+
+
+
+
+            private void PrintPossibleValues()
         {
             for (int row = 0; row < 9; row++)
             {
