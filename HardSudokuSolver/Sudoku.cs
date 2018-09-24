@@ -4,174 +4,142 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HardSudokuSolver
+namespace SudokuGame
 {
-    class Sudoku
+
+    public class Sudoku
     {
-        private int[,] sudokuBoard = new int[9, 9]; // Sudokuboard
-        List<int>[,] possibleValue = new List<int>[9, 9];
+        //tom sudokutabell
+        int[,] board = new int[9, 9];
 
-        public Sudoku(string board)
+        //constructor
+        public Sudoku(int[,] board)
         {
-            for (int row = 0; row < sudokuBoard.GetLength(0); row++)
+            //loop för att sätta värden i tom sudokutabell
+            for (int i = 0; i < 9; i++)
             {
-                for (int col = 0; col < sudokuBoard.GetLength(1); col++)
+                for (int j = 0; j < 9; j++)
                 {
-                    sudokuBoard[row, col] = int.Parse(board[col + (9 * row)].ToString());
+                    this.board[i, j] = board[i, j];
                 }
             }
         }
 
-        private void InitValues() // Initierar 1-9 för gissningslistan
+        private bool isInRow(int row, int number)
+        {
+            for (int i = 0; i < 9; i++)
+                if (board[row, i] == number)
+                    return true;
+            return false;
+        }
+
+        private bool isInCol(int col, int number)
+        {
+            for (int i = 0; i < 9; i++)
+                if (board[i, col] == number)
+                    return true;
+            return false;
+        }
+
+        private bool isInBox(int row, int col, int number)
+        {
+            int r = row - row % 3;
+            int c = col - col % 3;
+            for (int i = r; i < r + 3; i++)
+                for (int j = c; j < c + 3; j++)
+                    if (board[i, j] == number)
+                        return true;
+            return false;
+
+        }
+
+        private bool isOk(int row, int col, int number)
+        {
+            return !isInRow(row, number) && !isInCol(col, number) && !isInBox(row, col, number);
+
+        }
+
+        public bool Solve()
         {
             for (int row = 0; row < 9; row++)
             {
                 for (int col = 0; col < 9; col++)
                 {
-                    possibleValue[row, col] = new List<int>();
-                    for (int i = 1; i <= 9; i++)
+                    if (board[row, col] == 0)
                     {
-                        possibleValue[row, col].Add(i);
-                    }
-                }
-            }
-        }
-
-        private void DisplaysudokuBoard()
-        {
-            Console.WriteLine("-------------------------");
-            for (int row = 0; row < 9; row++)
-            {
-                Console.Write("|");
-                for (int col = 0; col < 9; col++)
-                {
-                    Console.Write(" " + sudokuBoard[row, col]);
-                    if ((col + 1) % 3 == 0)
-                    {
-                        Console.Write(" |");
-                    }
-                }
-                Console.WriteLine();
-                if ((row + 1) % 3 == 0)
-                {
-                    Console.WriteLine("-------------------------");
-                }
-            }
-        }
-
-        private List<int> GetRowValues(int row)
-        {
-            List<int> values = new List<int>();
-            for (int col = 0; col < 9; col++)
-            {
-                if (sudokuBoard[row, col] != 0) values.Add(sudokuBoard[row, col]);
-            }
-            return values;
-        }
-
-        private List<int> GetColumnValues(int col)
-        {
-            List<int> values = new List<int>();
-            for (int row = 0; row < 9; row++)
-            {
-                if (sudokuBoard[row, col] != 0) values.Add(sudokuBoard[row, col]);
-            }
-            return values;
-        }
-
-        private List<int> GetBoxValues(int row, int col)
-        {
-            List<int> values = new List<int>();
-
-            int xStart = (row / 3) * 3;
-            int yStart = (col / 3) * 3;
-            for (int x = xStart; x < xStart + 3; x++)
-            {
-                for (int y = yStart; y < yStart + 3; y++)
-                {
-                    if (sudokuBoard[x, y] != 0) values.Add(sudokuBoard[x, y]);
-                }
-            }
-            return values;
-        }
-
-        public void Solve()
-        {
-            Console.WriteLine("Pussel att lösa: ");
-            DisplaysudokuBoard();
-
-            InitValues();
-            List<int> unavailableValues = new List<int>();
-
-            bool wasUpdated = true;
-            for (int iteration = 0; wasUpdated; iteration++)
-            {
-                wasUpdated = false;
-                for (int row = 0; row < 9; row++)
-                {
-                    for (int col = 0; col < 9; col++)
-                    {
-                        if (sudokuBoard[row, col] == 0)
+                        for (int number = 1; number <= 9; number++)
                         {
-                            unavailableValues = GetRowValues(row);
-                            foreach (int value in GetColumnValues(col))
+                            if (isOk(row, col, number))
                             {
-                                if (!unavailableValues.Contains(value))
-                                {
-                                    unavailableValues.Add(value);
-                                }
-                            }
-                            foreach (int value in GetBoxValues(row, col))
-                            {
-                                if (!unavailableValues.Contains(value))
-                                {
-                                    unavailableValues.Add(value);
-                                }
-                            }
+                                board[row, col] = number;
 
-                            for (int i = 1; i <= 9; i++)
-                            {
-                                if (unavailableValues.Contains(i))
+                                if (Solve())
                                 {
-                                    possibleValue[row, col].Remove(i);
+                                    return true;
                                 }
-                            }
-                            if (possibleValue[row, col].Count == 1)
-                            {
-                                sudokuBoard[row, col] = possibleValue[row, col][0];
-                                possibleValue[row, col].Clear();
-                                wasUpdated = true;
-                            }
-                            for (int i = 0; i < unavailableValues.Count; i++)
-                            {
-                                if (possibleValue[row, col].Contains(unavailableValues[i]))
+                                else
                                 {
-                                    int getIndex = possibleValue[row, col].IndexOf(unavailableValues[i]);
-                                    possibleValue[row, col].RemoveAt(getIndex);
+                                    board[row, col] = 0;
                                 }
                             }
                         }
+                        return false;
                     }
                 }
             }
-            Console.WriteLine("Efter lösning: ");
-            DisplaysudokuBoard();
+            return true;
+
+        }
+        //utskrift av sudokutabell
+        public void BoardAsText()
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    Console.Write(" " + board[i, j]);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
         }
 
-        private void PrintPossibleValues()
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
         {
-            for (int row = 0; row < 9; row++)
+            int[,] StartingBoard = {
+                            { 0, 6, 0, 0, 9, 0, 0, 2, 0 },
+                            { 1, 0, 0, 0, 0, 0, 0, 0, 0 },
+                            { 0, 7, 0, 0, 0, 1, 8, 0, 0 },
+                            { 0, 1, 5, 3, 0, 0, 0, 0, 2 },
+                            { 0, 0, 0, 6, 0, 4, 0, 0, 0 },
+                            { 8, 0, 0, 0, 0, 5, 4, 3, 0 },
+                            { 0, 0, 3, 4, 0, 0, 0, 5, 0 },
+                            { 0, 0, 0, 0, 0, 0, 0, 0, 9 },
+                            { 0, 5, 0, 0, 7, 0, 0, 6, 0 }
+                            };
+            Sudoku game = new Sudoku(StartingBoard);
+            Console.WriteLine(" Sudoku game to solve: ");
+            game.BoardAsText();
+
+            if (game.Solve())
             {
-                for (int col = 0; col < 9; col++)
-                {
-                    Console.Write($"possibleValue[{row}, {col}]=[");
-                    foreach (int item in possibleValue[row, col])
-                    {
-                        Console.Write(item + ",");
-                    }
-                    Console.WriteLine("\b]");
-                }
+                Console.WriteLine("Sudoku Grid solved with simple BT");
+                game.BoardAsText();
+
             }
+            else
+                Console.WriteLine("UNsolvable!");
+
+
+            Console.ReadKey();
+
+
         }
     }
+
 }
+
