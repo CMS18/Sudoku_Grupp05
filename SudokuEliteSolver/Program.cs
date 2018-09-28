@@ -23,7 +23,7 @@ namespace SudokuEliteSolver
     
         static void Main(string[] args)
         {
-            Sudoku sudoku = new Sudoku("000300000001080070980007610007900040204000308060008900075800031020060700000004000");
+            Sudoku sudoku = new Sudoku("000000307048720010005014008250003876000000000671200039500840700030052980106000000");
             sudoku.Solve();
         }
     }

@@ -22,6 +22,116 @@ namespace HardSudokuSolver
             }
         }
 
+        private bool SolveByTrying(int row, int col, int idx)
+        {
+            if (row == 8 && col == 8) // Absolut sista som händer i loopen
+            {
+                return true;
+            }
+            
+            if (col > 8) // Om den en row är klar, byt row
+            {
+                row++;
+                col = 0;
+                idx = 0;
+            }
+
+            // Skapa nya listor för att inte skriva över de slutgiltiga
+            List<int>[,] possibleValueSubstitute = new List<int>[9, 9];
+            List<int> unavailableValues = GetUnavailableValues(row, col);
+            possibleValueSubstitute[row, col] = possibleValue[row, col];
+
+            for (int i = 1; i <= 9; i++)
+            {
+                if (unavailableValues.Contains(i))
+                {
+                    possibleValueSubstitute[row, col].Remove(i);
+                }
+            }
+
+            if (sudokuBoard[row,col] != 0)
+            {
+                SolveByTrying(row, col + 1, 0);
+            }
+
+            for (; idx < possibleValueSubstitute[row, col].Count; idx++)
+            {
+                bool thisIdxCorrect = false; // korrekt start?
+                if (sudokuBoard[row, col] == 0)
+                {
+                    sudokuBoard[row, col] = possibleValueSubstitute[row, col][idx];
+                    SolveByTrying(row, col + 1, 0);
+                }
+            }
+            return false; // Vid ett olösligt index
+            // Om sudokuBoard == 0 && unavalible avliues.Count == 9 --> Backtracka
+        }
+
+
+        private void TESTSOLVE()
+        {
+            /*
+         bool withinBoard = false;
+            // Kontrollera att positionen är innanför brädet - annars korrigera den
+            if (row < 9 && col < 9) withinBoard = true;
+            else if (col > 8 && row < 7)
+            {
+                col = 0;
+                row++;
+            }
+            else withinBoard = false;
+            if (withinBoard == false) return true; // alla rutor genomgådda
+
+
+            // Om positionen är inom brädet:
+            if (withinBoard)
+            {
+                if (sudokuBoard[row,col] == 0 && idx < possibleValue[row, col].Count)
+                {
+                    sudokuBoard[row, col] = possibleValue[row, col][idx];
+                    idx++; // plussar upp den just in case att den är fel i ett senare läge
+                    while (SolveByTrying(row, col + 1, 0) == false)
+                    {
+
+                    }
+                }
+            }
+            // Om positionen är 0:
+            // GetPossibleValues(row,col); // från possibleValue
+            // Om (i<possibleValue[row,col].length):
+            // board[row,col] = possibleValue[row,col][i];
+            // Om nästa lösning är true: if (...
+            // Om positionen != 0:
+            // return SolveByGuessing(row,col+1,0);
+            // Om inte:
+            // Om (col > 8 && row > 8):
+            // return true; // brädet löst (förhoppningsvis)
+            // Annars Om (col > 8):
+            // SolveByGuessing(row+1,0,0)
+            // return SolveByGuessing(row,col,i);
+            //return false; // 
+             */
+        }
+
+
+
+
+        private void PrintPossibleValues()
+        {
+            for (int row = 0; row < 9; row++)
+            {
+                for (int col = 0; col < 9; col++)
+                {
+                    Console.Write($"possibleValue[{row}, {col}]=[");
+                    foreach (int item in possibleValue[row, col])
+                    {
+                        Console.Write(item + ",");
+                    }
+                    Console.WriteLine("\b]");
+                }
+            }
+        }
+
         private void InitValues() // Initierar 1-9 för gissningslistan
         {
             for (int row = 0; row < 9; row++)
@@ -95,6 +205,26 @@ namespace HardSudokuSolver
             return values;
         }
 
+        private List<int> GetUnavailableValues(int row, int col)
+        {
+            List<int> list = GetRowValues(row);
+            foreach (int value in GetColumnValues(col))
+            {
+                if (!list.Contains(value))
+                {
+                    list.Add(value);
+                }
+            }
+            foreach (int value in GetBoxValues(row, col))
+            {
+                if (!list.Contains(value))
+                {
+                    list.Add(value);
+                }
+            }
+            return list;
+        }
+
         public void Solve()
         {
             Console.WriteLine("Pussel att lösa: ");
@@ -113,21 +243,7 @@ namespace HardSudokuSolver
                     {
                         if (sudokuBoard[row, col] == 0)
                         {
-                            unavailableValues = GetRowValues(row);
-                            foreach (int value in GetColumnValues(col))
-                            {
-                                if (!unavailableValues.Contains(value))
-                                {
-                                    unavailableValues.Add(value);
-                                }
-                            }
-                            foreach (int value in GetBoxValues(row, col))
-                            {
-                                if (!unavailableValues.Contains(value))
-                                {
-                                    unavailableValues.Add(value);
-                                }
-                            }
+                            unavailableValues = GetUnavailableValues(row, col);
 
                             for (int i = 1; i <= 9; i++)
                             {
@@ -156,72 +272,17 @@ namespace HardSudokuSolver
             }
 
             bool isSolved = SolveByTrying(0, 0, 0);
-            if (isSolved) Console.WriteLine("Brädet är avklarat!");
-            else Console.WriteLine("Du har failat!");
+            // if (isSolved) Console.WriteLine("Brädet är avklarat!");
+            // else Console.WriteLine("Du har failat!");
 
 
             Console.WriteLine("Efter lösning: ");
             DisplaysudokuBoard();
         }
-            DisplaysudokuBoard(1);
+            //DisplaysudokuBoard(1);
 
 
 
         }
         
-        private bool SolveByTrying(int row, int col, int idx)
-        {
-            bool withinBoard = false;
-            // Kontrollera att positionen är innanför brädet - annars korrigera den
-            if (row < 9 && col < 9) withinBoard = true;
-            else if (col > 8 && row < 7)
-            {
-                col = 0;
-                row++;
-            }
-            else withinBoard = false;
-            if (withinBoard == false) return true; // alla rutor genomgådda
-            
-
-            // Om positionen är inom brädet:
-            if (withinBoard)
-            {
-
-            }
-            // Om positionen är 0:
-            // GetPossibleValues(row,col); // från possibleValue
-            // Om (i<possibleValue[row,col].length):
-            // board[row,col] = possibleValue[row,col][i];
-            // Om nästa lösning är true: if (...
-            // Om positionen != 0:
-            // return SolveByGuessing(row,col+1,0);
-            // Om inte:
-            // Om (col > 8 && row > 8):
-            // return true; // brädet löst (förhoppningsvis)
-            // Annars Om (col > 8):
-            // SolveByGuessing(row+1,0,0)
-            // return SolveByGuessing(row,col,i);
-            return false; // 
-        }
-
-
-
-
-
-            private void PrintPossibleValues()
-        {
-            for (int row = 0; row < 9; row++)
-            {
-                for (int col = 0; col < 9; col++)
-                {
-                    Console.Write($"possibleValue[{row}, {col}]=[");
-                    foreach (int item in possibleValue[row, col])
-                    {
-                        Console.Write(item + ",");
-                    }
-                    Console.WriteLine("\b]");
-                }
-            }
-        }
-    }
 }
