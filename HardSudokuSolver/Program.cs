@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace SudokuGame
 {
@@ -26,7 +27,10 @@ namespace SudokuGame
         
         static void Main(string[] args)
         {
-        Sudoku game = new Sudoku(expertSodoku);
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            Sudoku game = new Sudoku(expertSodoku);
             Console.WriteLine(" Sudoku game to solve: ");
             game.BoardAsText();
 
@@ -36,12 +40,13 @@ namespace SudokuGame
                 game.BoardAsText();
             }
             else
-                Console.WriteLine("UNsolvable!");
+            {
+                Console.WriteLine("Puzzle is unsolvable!\n");
+            }
 
-
+            stopwatch.Stop();
+            Console.WriteLine($"Time Elapsed: {stopwatch.ElapsedMilliseconds}ms");
             Console.ReadKey();
-
-
         }
     }
 }

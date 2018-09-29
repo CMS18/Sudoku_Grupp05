@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace SudokuGame
 {
 
     public class Sudoku
     {
-        //tom sudokutabell
+        // Tom sudokutabell
         int[,] board = new int[9, 9];
 
         public Sudoku(string board)
@@ -87,7 +88,7 @@ namespace SudokuGame
 
         }
 
-        //utskrift av sudokutabell
+        // Utskrift av sudokutabell
         public void BoardAsText()
         {
             for (int r = 0; r < 9; r++)
@@ -102,13 +103,7 @@ namespace SudokuGame
                 Console.WriteLine();
             }
             Console.WriteLine(" -------------------------");
-            //bool alive = true;
-            //Console.WriteLine(alive.ToString());
         }
-
     }
-
-    
-
 }
 
