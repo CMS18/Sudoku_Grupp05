@@ -12,6 +12,18 @@ namespace SudokuGame
         //tom sudokutabell
         int[,] board = new int[9, 9];
 
+        public Sudoku(string board)
+        {
+            for (int row = 0; row < 9; row++)
+            {
+                for (int col = 0; col < 9; col++)
+                {
+                    this.board[row, col] = int.Parse(board[col + (9 * row)].ToString());
+                }
+            }
+        }
+
+        /*
         //constructor
         public Sudoku(int[,] board)
         {
@@ -24,6 +36,7 @@ namespace SudokuGame
                 }
             }
         }
+        */
 
         private bool isInRow(int row, int number)
         {
@@ -50,13 +63,11 @@ namespace SudokuGame
                     if (board[i, j] == number)
                         return true;
             return false;
-
         }
 
         private bool isOk(int row, int col, int number)
         {
             return !isInRow(row, number) && !isInCol(col, number) && !isInBox(row, col, number);
-
         }
 
         public bool Solve()
