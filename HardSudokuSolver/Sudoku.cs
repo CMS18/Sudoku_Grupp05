@@ -23,21 +23,6 @@ namespace SudokuGame
             }
         }
 
-        /*
-        //constructor
-        public Sudoku(int[,] board)
-        {
-            //loop för att sätta värden i tom sudokutabell
-            for (int i = 0; i < 9; i++)
-            {
-                for (int j = 0; j < 9; j++)
-                {
-                    this.board[i, j] = board[i, j];
-                }
-            }
-        }
-        */
-
         private bool isInRow(int row, int number)
         {
             for (int i = 0; i < 9; i++)
@@ -101,6 +86,7 @@ namespace SudokuGame
             return true;
 
         }
+
         //utskrift av sudokutabell
         public void BoardAsText()
         {

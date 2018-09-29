@@ -23,36 +23,25 @@ namespace SudokuGame
         static string hardSodoku = "000004800590200004100800090001000508070000040309000100030001002200008067004900000";
         static string expertSodoku = "060090020100000000070001800015300002000604000800005430003400050000000009050070060";
         static string unSolvableSudoku = "666090020100000000070001800015300002000604000800005430003400050000000009050070060";
-
-
-
-        /*
+        
         static void Main(string[] args)
         {
-            Sudoku sudoku = new Sudoku(mediumSodoku);
-        }
-        */
-       // class Program
-       // {
-            static void Main(string[] args)
+        Sudoku game = new Sudoku(expertSodoku);
+            Console.WriteLine(" Sudoku game to solve: ");
+            game.BoardAsText();
+
+            if (game.Solve())
             {
-            Sudoku game = new Sudoku(expertSodoku);
-                Console.WriteLine(" Sudoku game to solve: ");
+                Console.WriteLine("Sudoku Grid solved with simple BT");
                 game.BoardAsText();
-
-                if (game.Solve())
-                {
-                    Console.WriteLine("Sudoku Grid solved with simple BT");
-                    game.BoardAsText();
-                }
-                else
-                    Console.WriteLine("UNsolvable!");
-
-
-                Console.ReadKey();
-
-
             }
-       // }
+            else
+                Console.WriteLine("UNsolvable!");
+
+
+            Console.ReadKey();
+
+
+        }
     }
 }
