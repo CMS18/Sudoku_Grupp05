@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuEliteSolver", "SudokuEliteSolver\SudokuEliteSolver.csproj", "{C2E53FF5-FB2D-4183-83DE-5AB7E8F3F3FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardSudokuSolver", "HardSudokuSolver\HardSudokuSolver.csproj", "{F63A81A7-0381-4D51-A975-2BF9E42E2A19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuGame", "HardSudokuSolver\SudokuGame.csproj", "{F63A81A7-0381-4D51-A975-2BF9E42E2A19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HardSudokuSolver
+namespace SudokuGame
 {
     class Program
     {
@@ -23,10 +23,72 @@ namespace HardSudokuSolver
         static string hardSodoku = "000004800590200004100800090001000508070000040309000100030001002200008067004900000";
         static string expertSodoku = "060090020100000000070001800015300002000604000800005430003400050000000009050070060";
 
-
+        /*
         static void Main(string[] args)
         {
             Sudoku sudoku = new Sudoku(mediumSodoku);
         }
+        */
+       // class Program
+       // {
+            static void Main(string[] args)
+            {
+            int[,] StartingBoard = {{ 0,0,7,8,0,0,0,0,6, },
+{ 0,4,0,0,2,0,0,5,0, },
+{ 3,0,0,0,0,4,2,0,0, },
+{ 5,0,0,0,0,3,7,0,0, },
+{ 0,6,0,0,9,0,0,2,0, },
+{ 0,0,1,2,0,0,0,0,5, },
+{ 0,0,3,5,0,0,0,0,9, },
+{ 0,1,0,0,4,0,0,6,0, },
+{ 6,0,0,0,0,9,8,0,0 }};
+                /*{{ 0, 6, 0, 0, 9, 0, 0, 2, 0, },
+{ 1,0,0,0,0,0,0,0,0, },
+{ 0,7,0,0,0,1,8,0,0, },
+{ 0,1,5,3,0,0,0,0,2, },
+{ 0,0,0,6,0,4,0,0,0, },
+{ 8,0,0,0,0,5,4,3,0, },
+{ 0,0,3,4,0,0,0,5,0, },
+{ 0,0,0,0,0,0,0,0,9, },
+{ 0,5,0,0,7,0,0,6,0 } };
+            {{ 0, 0, 0, 0, 0, 4, 8, 0, 0, },
+                                    { 5,9,0,2,0,0,0,0,4, },
+                                    { 1,0,0,8,0,0,0,9,0, },
+                                    { 0,0,1,0,0,0,5,0,8, },
+                                    { 0,7,0,0,0,0,0,4,0, },
+                                    { 3,0,9,0,0,0,1,0,0, },
+                                    { 0,3,0,0,0,1,0,0,2, },
+                                    { 2,0,0,0,0,8,0,6,7, },
+                                    { 0,0,4,9,0,0,0,0,0 } };{
+                        { 0, 6, 0, 0, 9, 0, 0, 2, 0 },
+                        { 1, 0, 0, 0, 0, 0, 0, 0, 0 },
+                        { 0, 7, 0, 0, 0, 1, 8, 0, 0 },
+                        { 0, 1, 5, 3, 0, 0, 0, 0, 2 },
+                        { 0, 0, 0, 6, 0, 4, 0, 0, 0 },
+                        { 8, 0, 0, 0, 0, 5, 4, 3, 0 },
+                        { 0, 0, 3, 4, 0, 0, 0, 5, 0 },
+                        { 0, 0, 0, 0, 0, 0, 0, 0, 9 },
+                        { 0, 5, 0, 0, 7, 0, 0, 6, 0 }
+                        };*/
+
+            Sudoku game = new Sudoku(StartingBoard);
+                Console.WriteLine(" Sudoku game to solve: ");
+                game.BoardAsText();
+
+                if (game.Solve())
+                {
+                    Console.WriteLine("Sudoku Grid solved with simple BT");
+                    game.BoardAsText();
+
+                }
+                else
+                    Console.WriteLine("UNsolvable!");
+
+
+                Console.ReadKey();
+
+
+            }
+       // }
     }
 }

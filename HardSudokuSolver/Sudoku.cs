@@ -93,53 +93,25 @@ namespace SudokuGame
         //utskrift av sudokutabell
         public void BoardAsText()
         {
-            for (int i = 0; i < 9; i++)
+            for (int r = 0; r < 9; r++)
             {
-                for (int j = 0; j < 9; j++)
+                if (r % 3 == 0) Console.WriteLine(" -------------------------");
+                for (int c = 0; c < 9; c++)
                 {
-                    Console.Write(" " + board[i, j]);
+                    if (c % 3 == 0) Console.Write(" |");
+                    Console.Write(" " + board[r, c]);
                 }
+                Console.Write(" |");
                 Console.WriteLine();
             }
-            Console.WriteLine();
+            Console.WriteLine(" -------------------------");
+            //bool alive = true;
+            //Console.WriteLine(alive.ToString());
         }
 
     }
 
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            int[,] StartingBoard = {
-                            { 0, 6, 0, 0, 9, 0, 0, 2, 0 },
-                            { 1, 0, 0, 0, 0, 0, 0, 0, 0 },
-                            { 0, 7, 0, 0, 0, 1, 8, 0, 0 },
-                            { 0, 1, 5, 3, 0, 0, 0, 0, 2 },
-                            { 0, 0, 0, 6, 0, 4, 0, 0, 0 },
-                            { 8, 0, 0, 0, 0, 5, 4, 3, 0 },
-                            { 0, 0, 3, 4, 0, 0, 0, 5, 0 },
-                            { 0, 0, 0, 0, 0, 0, 0, 0, 9 },
-                            { 0, 5, 0, 0, 7, 0, 0, 6, 0 }
-                            };
-            Sudoku game = new Sudoku(StartingBoard);
-            Console.WriteLine(" Sudoku game to solve: ");
-            game.BoardAsText();
-
-            if (game.Solve())
-            {
-                Console.WriteLine("Sudoku Grid solved with simple BT");
-                game.BoardAsText();
-
-            }
-            else
-                Console.WriteLine("UNsolvable!");
-
-
-            Console.ReadKey();
-
-
-        }
-    }
+    
 
 }
 
